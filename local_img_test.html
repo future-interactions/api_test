@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+    <h1>API Test</h1>
+
+    <img source="" id="constable" width="200" />
+    <p source="" id="c_text"></p>
+    <script>
+        fetchImg().then(response => {
+            console.log("yay img loaded");
+        }
+        ).catch(error => {
+            console.log("img error!!!");
+            console.log(error);
+        });
+
+        fetchTxt().then(response => {
+            console.log("yay txt loaded");
+        }
+        ).catch(error => {
+            console.log("txt error!!!");
+            console.log(error);
+        });
+
+        async function fetchImg() {
+            const response = await fetch('constable.jpg');
+            const blob = await response.blob();
+            document.getElementById('constable').src = URL.createObjectURL(blob);
+        }
+        async function fetchTxt() {
+            const response = await fetch('constable.txt');
+            const desc = await response.text();
+            document.getElementById("c_text").innerHTML = desc;
+        }
+    </script>
+
+</body>
+
+</html>

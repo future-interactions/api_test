@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+
+    <h1>Events API – Test</h1>
+
+    <img source="" id="image" width="200" />
+    <p source="" id="title"></p>
+    <p source="" id="category"></p>
+    <p source="" id="location"></p>
+    <p source="" id="time"></p>
+    <p source="" id="cost"></p>
+    <script>
+        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+        // const api_url = 'https://www.nationalgallery.org.uk/umbraco/api/EventsApi/TodayInGallery';
+        // const api_url = 'http://catfacts-api.appspot.com/api/facts?number=99';
+  
+        getData().then(response => {
+            console.log("yay img loaded");
+        }
+        ).catch(error => {
+            console.log("img error!!!");
+            console.log(error);
+        });
+
+        async function getData() {
+            const response = await fetch(api_url);
+            const data = await response.json(); // parses JSON response into native JavaScript objects
+            console.log(data); // JSON data parsed by `data.json()` call
+
+        }
+    </script>
+</body>
+
+</html>

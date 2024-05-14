@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSV API test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <h1>API Test csv</h1>
+    <canvas id="chart" width="400" height="150"></canvas>
+    <p source="" id="date_text"></p>
+    <p source="" id="day_text"></p>
+    <script>
+        //data from https://data.giss.nasa.gov/gistemp/
+        const xlabels = [];
+        const yValues = [];
+        chartIt();
+       async function chartIt() {
+        await getData();
+            const ctx = document.getElementById('chart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: xlabels,
+                    datasets: [{
+                        label: 'Thames Tidal Predictions',
+                        data: yValues,
+                        borderWidth: 1
+                    }]
+                },
+            });
+        }
+        async function getData() {
+            const response = await fetch('Margate-2024-5-tides-1.csv');
+            const data = await response.text();
+            // console.log(data);
+            const table = data.split('\n').slice(1);
+            table.forEach(row => {
+                const cols = row.split(',');
+                const date = cols[0];
+                xlabels.push(date);
+                const day = cols[1];
+                const moon = cols[2];
+                const time = cols[3];
+                const height = cols[4];
+                yValues.push(height);
+                const high_lo = cols[5];
+                console.log(date, day, moon, time, height, high_lo);
+            })
+            // document.getElementById("date_text").innerHTML = cols;
+            // console.log(cols);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
